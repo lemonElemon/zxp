@@ -1,0 +1,302 @@
+.platinum-window{
+    min-width: 1264px;
+    min-height: 648px;
+    background-color: rgba(31, 33, 51, 0.8);
+}
+/***   header-white     ***/
+div.window-header::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+div.window-header{
+    background-color: rgba(31, 33, 51, 0.5);
+    height: 32px;
+}
+div.window-header > a{
+    display: block;
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    opacity: 0.8;
+    
+    font-size: 13px;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 4px;
+}
+div.window-header > span{
+    display: block;
+    float: left;
+    width: 94px;
+    height: 18px;
+    line-height: 18px;
+    opacity: 0.8;
+    font-size: 13px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 6px;
+    margin-left: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+div.window-header a.window-header-title1{
+    width: 102px;
+    margin-left: 24px;
+}
+div.window-header a.window-header-title2{
+    width: 88px;
+    margin-left: 4px;
+}
+div.window-header a:hover{
+    background-color: #288ae0;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    opacity: 1;
+}
+div.window-header a:active{
+    background-color: rgba(29, 101, 163, 0.6);
+}
+div.window-header > span:hover{
+    background-color: #288ae0;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    opacity: 1;
+    border: none;
+    width: 96px;
+    height: 20px;
+    line-height: 20px;
+}
+div.window-header > span:active{
+    background-color: rgba(29, 101, 163, 0.6);
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border: none;
+    width: 96px;
+    height: 20px;
+    line-height: 20px;
+    opacity: 1;
+}
+
+ul.window-edit-section::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+ul.chart-draw-section::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+ul.chart-draw-section{
+    width: 420px;
+    height: 32px;
+    padding-right: 4px;
+    margin-left: 13px;
+    margin-right: 13px;
+    float: left;
+}
+ul.chart-draw-section li{
+    height: 32px;
+    width: 24px;
+    margin-left: 4px;
+}
+ul.chart-draw-section li a{
+    height: 24px;
+    width: 24px;
+    margin-top: 4px;
+    opacity: 0.8;
+    display: inline-block;
+}
+ul.chart-draw-section li a img:hover{
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    background-color: #288ae0;
+    opacity: 1;
+}
+ul.chart-draw-section li a img:active{
+    background-color: rgba(29, 101, 163, 0.6);
+}
+ul.chart-draw-section li a img .on{
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    background-color: rgba(41, 171, 226, 0);
+}
+
+div.user-section::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+div.user-section{
+    width: 170px;
+    height: 32px;
+    float: left;
+}
+div.user-section a{
+    display: block;
+    width: 78px;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    font-size: 13px;
+    float: left;
+    text-align: center;
+    margin-top: 6px;
+    opacity: 0.8;
+}
+div.user-section a.user-section-text1{
+    border: solid 1px #e6a82e;
+    background-color: rgba(31, 33, 51, 0.8);
+    color: #e6a82e;
+}
+div.user-section a.user-section-text2{
+    border: solid 1px #b6b6ff;
+    background-color: rgba(31, 33, 51, 0.8);
+    color: #b6b6ff;
+    margin-left: 10px;
+}
+
+ul.window-edit-section{
+    width: 140px;
+    height: 32px;
+    padding-right: 16px;
+    float: right;
+}
+ul.window-edit-section li{
+    height: 32px;
+    width: 24px;
+    margin-left: 4px;
+}
+ul.window-edit-section li a{
+    height: 24px;
+    width: 24px;
+    margin-top: 4px;
+    opacity: 0.8;
+    display: inline-block;
+}
+ul.window-edit-section li a img:hover{
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    background-color: #288ae0;
+    opacity: 1;
+}
+ul.window-edit-section li a img:active{
+    background-color: rgba(29, 101, 163, 0.6);
+}
+
+
+/***   body-white     ***/
+.window-body{
+    width: 100%;
+    min-height: 588px;
+}
+
+/***   footer-white    ***/
+.window-footer::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.window-footer{
+    width: 100%;
+    height: 28px;
+    background-color: #b7bbc6;
+}
+.window-footer .window-footer-panel::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.window-footer .window-footer-panel{
+    width: 152px;
+    height: 20px;
+    opacity: 0.8;
+    font-size: 13px;
+    color: #1f2133;
+    float: left;
+    text-align: center;
+    margin: 4px 3px 4px 4px;
+    cursor: pointer;
+}
+.window-footer .window-footer-panel .text{
+    width: 136px;
+    height: 20px;
+    opacity: 0.8;
+    font-size: 13px;
+    color: #1f2133;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    margin-left: -8px;
+}
+.window-footer .window-footer-panel span{
+    display: block;
+    width: 20px;
+    height: 14px;
+    line-height: 14px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    background-color: rgba(31, 33, 51, 0.5);
+    color: #ffffff;
+    float: left;
+    margin-top: 3px;
+    margin-left: 4px;
+}
+.window-footer .line{
+    width: 1px;
+    height: 14px;
+    background-color: rgba(31, 33, 51, 0.3);
+    margin-top: 7px;
+    float: left;
+}
+.window-footer .window-footer-extend-btn::after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.window-footer .window-footer-extend-btn{
+    margin-left: 5px;
+    width: 52px;
+    height: 28px;
+    float: left;
+}
+.window-footer .window-footer-extend-btn a{
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    float: left;
+    cursor: pointer;
+}
+.window-footer .window-footer-extend-btn a:last-child{
+    margin-left: 4px;
+}
+
+.window-footer .window-footer-panel:hover{
+    opacity: 1;
+    background-color: #288ae0;
+    color: #ffffff;
+}
+
+.window-footer-panel:hover .window-footer-text {
+    color: #ffffff;
+}

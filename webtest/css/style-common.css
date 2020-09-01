@@ -1,0 +1,17 @@
+html,body,ul,li,p,h1,h2,h3,h4,h5{
+    margin: 0;
+    padding: 0;
+    font-family: NotoSansJP;
+    font-size: 13px;
+}
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -ms-user-select: none;
+}
+
+ul{
+    list-style: none;
+}
+
