@@ -1,137 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+  <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/babel" src="js/test.js"></script>
+  <style>
+      #app-root {
+        height: 10em;
+        width: 10em;
+        background: lightblue;
+        overflow: hidden;
+      }
+
+      #modal-root {
+        position: relative;
+        z-index: 999;
+      }
+
+      .modal {
+        background-color: rgba(0,0,0,0.5);
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+  </style>
 </head>
 <body>
-    <p>腾讯的前端工程师根据长期的数据监控也发现页面的一秒钟延迟会造成 9.4% 的 PV 的下降，8.3% 跳出率的增加以及 3.5% 转化率的下降。</p><p>可以看出，性能优化商业上来说很重要。</p><p>但是，更重要的还是屏幕前我们的用户，让用户在使用产品时有更快更舒适的浏览体验，这算是一种前端工程师的自我修养。</p><p>所以今天就分享一下如何去优化我们的 React 项目，进而提升用户体验。</p>使用React.Fragment 来避免向 DOM 添加额外的节点
-<p>我们在写 React 代码时，会经常遇到返回一组元素的情况，代码像这样：</p><pre class="prettyprint ">class Parent extends React.Component {
-render() {
-return (
-&lt;h1&gt;Hello there!&lt;/h1&gt;
-&lt;h1&gt;Hello there again!&lt;/h1&gt;
-)
-}
-}</pre><p>如果我们写成这样，控制台会报错误：<code>JSX parent expressions must have one parent element</code>，告诉我们只能返回一个元素，所以我们通常会在最外层包裹一个 div 元素，如下所示：</p><pre class="prettyprint ">class Parent extends React.Component {
-render() {
-return (
-&lt;div&gt;
-&lt;h1&gt;Hello there!&lt;/h1&gt;
-&lt;h1&gt;Hello there again!&lt;/h1&gt;
-&lt;/div&gt;
-)
-}
-}</pre><p>这样做虽然能正常执行，但是会额外创建不必要的 <code>DOM</code>节点，这可能会导致创建许多无用的元素，并且在我们的渲染数据来自特定顺序的子组件时，某些情况下也会生成许多无效的节点。请考虑以下代码：</p><pre class="prettyprint ">class Table extends React.Component {
-render() {
-return (
-&lt;table&gt;
-&lt;tr&gt;
-  &lt;Columns /&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-);
-}
-}
-
-class Columns extends React.Component {
-render() {
-return (
-&lt;div&gt;
-&lt;td&gt;column one&lt;/td&gt;
-&lt;td&gt;column two&lt;/td&gt;
-&lt;/div&gt;
-);
-}
-}</pre><p>上面的代码将在我们的组件中呈现以下内容：</p><pre class="prettyprint ">&lt;table&gt;
-&lt;tr&gt;
-&lt;div&gt;
-&lt;td&gt;column one&lt;/td&gt;
-&lt;td&gt;column two&lt;/td&gt;
-&lt;/div&gt;
-&lt;/tr&gt;
-&lt;/table&gt;</pre><p>这显然不是我们想看到的，React 为我们提供了 <code>Fragments</code>，<code>Fragments</code>允许我们将子列表分组，而无需向 DOM 添加额外节点。我们可以将组件重新编写为：</p><pre class="prettyprint ">class Columns extends React.Component {
-render() {
-return (
-&lt;React.Fragment&gt;
-&lt;td&gt;column one&lt;/td&gt;
-&lt;td&gt;column two&lt;/td&gt;
-&lt;/React.Fragment&gt;
-);
-}
-}</pre>使用 React.Lazy 延迟加载组件
-<p>有时我们只想在请求时加载部分组件，例如，仅在单击购物车图标时加载购物车数据，在用户滚动到该点时在长图像列表的底部加载图像等。</p><p><code>React.Lazy</code>帮助我们按需加载组件，从而减少我们应用程序的加载时间，因为只加载我们所需的组件。</p><p><code>React.lazy</code>接受一个函数，这个函数需要动态调用 import()。它必须返回一个 <code>Promise</code>，该 <code>Promise</code>需要 <code>resolve</code>一个 <code>defalut export</code>的 React 组件。如下所示：</p><pre class="prettyprint ">class MyComponent extends Component{
-render() {
-return (&lt;div&gt;MyComponent&lt;/div&gt;)
-}
-}
-const MyComponent = React.lazy(()=&gt;import('./MyComponent.js'))
-function App() {
-return (&lt;div&gt;&lt;MyComponent /&gt;&lt;/div&gt;)
-}</pre><p>在编译时，使用 <code>Webpack</code>解析到该语法时，它会自动地开始进行代码分割。最终，我们的应用程序将会被分成含有多个 UI 片段的包，这些 UI 片段将在需要时加载，如果你使用 <code>Create React App</code>，该功能已配置好，你能立刻使用这个特性。<code>Next.js</code>也已支持该特性而无需再配置。</p>使用React.Suspense
-<p>在交换组件时，会出现一个小的时间延迟，例如在 MyComponent 组件渲染完成后，包含 OtherComponent 的模块还没有被加载完成，这可能就会出现白屏的情况，我们可以使用加载指示器为此组件做优雅降级，这里我们使用 <code>Suspense</code>组件来解决。</p><p><code>React.Suspense</code>用于包装延迟组件以在加载组件时显示后备内容。</p><pre class="prettyprint ">// MyComponent.js
-const Mycomponent = React.lazy(()=&gt;import('./component.js'))
-function App() {
-return (
-&lt;div&gt;
-&lt;Suspense fallback={&lt;div&gt;loading ..&lt;/div&gt;}&gt;
-&lt;MyComponent /&gt;
-&lt;/Suspense&gt;
-&lt;/div&gt;
-)
-}</pre><p>上面的代码中，<code>fallback</code>属性接受任何在组件加载过程中你想展示的 React 元素。</p><p>你可以将 <code>Suspense</code>组件置于懒加载组件之上的任何位置，你甚至可以用一个 <code>Suspense</code>组件包裹多个懒加载组件。</p><pre class="prettyprint ">const OtherComponent = React.lazy(() =&gt; import('./OtherComponent'));
-const AnotherComponent = React.lazy(() =&gt; import('./AnotherComponent'));
-
-function MyComponent() {
-return (
-&lt;div&gt;
-&lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
-&lt;section&gt;
-  &lt;OtherComponent /&gt;
-  &lt;AnotherComponent /&gt;
-&lt;/section&gt;
-&lt;/Suspense&gt;
-&lt;/div&gt;
-);
-}</pre>使用 shouldComponentUpdate() 防止不必要的重新渲染
-<p>当一个组件的 <code>props</code>或 <code>state</code>变更，React 会将最新返回的元素与之前渲染的元素进行对比，以此决定是否有必要更新真实的 DOM，当它们不相同时 React 会更新该 DOM。</p><p>即使 React 只更新改变了的 DOM 节点，重新渲染仍然花费了一些时间。在大部分情况下它并不是问题，但是如果渲染的组件非常多时，就会浮现性能上的问题，我们可以通过覆盖生命周期方法 <code>shouldComponentUpdate</code>来进行提速。</p><p><code>shouldComponentUpdate</code>方法会在重新渲染前被触发。其默认实现总是返回 true，如果组件不需要更新，可以在 <code>shouldComponentUpdate</code>中返回 <code>false</code>来跳过整个渲染过程。其包括该组件的 render 调用以及之后的操作。</p><pre class="prettyprint ">shouldComponentUpdate(nextProps, nextState) {
-return nextProps.next !== this.props.next  
-}</pre>使用React.PureComponent
-<p><code>React.PureComponent</code>与 <code>React.Component</code>很相似。两者的区别在于 <code>React.Component</code>并未实现 <code>shouldComponentUpdate()</code>，而 <code>React.PureComponent</code>中以浅层对比 prop 和 state 的方式来实现了该函数。</p><p>如果赋予 React 组件相同的 props 和 state，<code>render()</code>函数会渲染相同的内容，那么在某些情况下使用 <code>React.PureComponent</code>可提高性能。</p><pre class="prettyprint ">// 使用 React.PureComponent
-class MyComponent extends React.PureComponent {
-render() {
-return (&lt;div&gt;MyComponent&lt;/div&gt;)
-}
-}
-
-class MyComponent extends React.Component {
-render() {
-return (&lt;div&gt;MyComponent&lt;/div&gt;)
-}
-}</pre><p>React.PureComponent 中的 <code>shouldComponentUpdate()</code>仅作对象的浅层比较。如果对象中包含复杂的数据结构，则有可能因为无法检查深层的差别，产生错误的比对结果。仅在你的 props 和 state 较为简单时，才使用 React.PureComponent，或者在深层数据结构发生变化时调用 <code>forceUpdate()</code>来确保组件被正确地更新。你也可以考虑使用 <code>immutable</code>对象加速嵌套数据的比较。</p>使用 React.memo 来缓存组件
-<p><code>React.memo</code>使用了缓存，缓存技术用于通过存储昂贵的函数调用的结果来加速程序，并在再次发生相同的输入时返回缓存的结果。</p><p>如果你的函数组件在给定相同 <code>props</code>的情况下渲染相同的结果，那么你可以通过将其包装在 <code>React.memo</code>中调用，以此通过记忆组件渲染结果的方式来提高组件的性能表现。这意味着在这种情况下，React 将跳过渲染组件的操作并直接复用最近一次渲染的结果。</p><p>默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。</p><pre class="prettyprint ">const MyComponent = ({user}) =&gt;{
-const {name, occupation} = user;
-return (
-&lt;div&gt;
-    &lt;h4&gt;{name}&lt;/h4&gt;
-    &lt;p&gt;{occupation}&lt;/p&gt;
-&lt;/div&gt;
-)
-}
-// 比较函数
-function areEqual(prevProps, nextProps) {
-/*
-如果把 nextProps 传入 render 方法的返回结果与
-将 prevProps 传入 render 方法的返回结果一致则返回 true，
-否则返回 false
-*/
-}
-export default React.memo(MyComponent, areEqual);</pre>使用 ComponentDidUnmount() 删除未使用的DOM 元素
-<p>有些时候，存在一些未使用的代码会导致内存泄漏的问题，React 通过向我们提供<code>componentWillUnmount</code>方法来解决这个问题。</p><p><code>componentWillUnmount()</code>会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如，清除 定时器，取消网络请求或清除在 <code>componentDidMount()</code>中创建的订阅等。</p><p>例如，我们可以在组件销毁之前，清除一些事件处理程序：</p><pre class="prettyprint ">componentWillUnmount() {
-document.removeEventListener("click", this.closeMenu);
-}</pre><p><code>componentWillUnmount()</code>中不应调用 <code>setState()</code>，因为该组件将永远不会重新渲染。组件实例卸载后，将永远不会再挂载它。</p>其他优化技术
-<h2>虚拟化长列表</h2><p>如果你的应用渲染了长列表（上百甚至上千的数据），我们推荐使用“虚拟滚动”技术。这项技术会在有限的时间内仅渲染有限的内容，并奇迹般地降低重新渲染组件消耗的时间，以及创建<code>DOM</code>节点的数量。</p><p><code>react-window</code>和 <code>react-virtualized</code>是热门的虚拟滚动库。它们提供了多种可复用的组件，用于展示列表、网格和表格数据。如果你想要一些针对你的应用做定制优化，你也可以创建你自己的虚拟滚动组件，就像 Twitter 所做的。</p><h2>使用 Chrome Performance 标签分析组件</h2><p>在开发模式下，你可以通过支持的浏览器可视化地了解组件是如何 挂载、更新以及卸载的。例如：
-<img src="/public/upload/loading.svg" data-src="https://img.javascriptcn.com/92c230d18a0363f067eff28f91a85624" class="lazy" /></p><p><strong>在 Chrome 中进行如下操作：</strong></p><ul><li>临时禁用所有的 <code>Chrome</code>扩展，尤其是 React 开发者工具。他们会严重干扰度量结果！</li><li>确保你是在 React 的开发模式下运行应用。</li><li>打开 Chrome 开发者工具的 <code>Performance</code>标签并按下 <code>Record</code>。</li><li>对你想分析的行为进行复现。尽量在 20 秒内完成以避免 Chrome 卡住。</li><li>停止记录。</li><li>在 <code>User Timing</code>标签下会显示 React 归类好的事件。</li></ul><p>最后，我们探索了一些可以优化 React 应用程序的一些提高性能的方法，不局限于此。我们应该根据需要有针对性的优化应用程序，因为在某些简单的场景中，过度的优化，可能会得不偿失。
+  <div id="app-root"></div>
+  <div id="modal-root"></div>
 </body>
 </html>
